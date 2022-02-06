@@ -1,4 +1,4 @@
-.v-doc-nav {
+.v-doc-aside {
   position: fixed;
   left: 0;
   top: 0;
@@ -6,8 +6,16 @@
   z-index: 1;
   min-width: 220px;
   max-width: 220px;
-  padding: 24px 0 72px;
-  overflow-y: scroll;
+  display: flex;
+  flex: 1;
+  flex-basis: auto;
+  flex-direction: column;
+}
+
+.v-doc-nav {
+  flex: 1;
+  flex-basis: auto;
+  overflow-y: auto;
   background-color: #fff;
   box-shadow: 0 8px 12px #ebedf0;
 

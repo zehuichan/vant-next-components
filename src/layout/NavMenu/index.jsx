@@ -1,8 +1,13 @@
+import { defineComponent } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+
 import './index.less'
 
-const version = require('/package.json').version
+import pkg from '/package.json'
 
-const NavMenu = {
+const { version } = pkg
+
+export default defineComponent({
   name: 'NavMenu',
   props: {
     config: {
@@ -10,9 +15,11 @@ const NavMenu = {
       default: () => []
     }
   },
-  render() {
-    const { config, $route } = this
-    return (
+  setup(props) {
+    const config = props.config
+    const route = useRoute()
+
+    return ()=> (
       <div class="v-doc-nav">
         {
           config.map((group, index) => (
@@ -23,7 +30,7 @@ const NavMenu = {
               {
                 group.items.map((item, groupIndex) => (
                   <div class="v-doc-nav__item" key={groupIndex}>
-                    <router-link class={{ active: $route.name === item.path }} to={item.path}>
+                    <router-link class={{ active: route.name === item.path }} to={item.path}>
                       {item.title}
                     </router-link>
                     {item.new && <div class="new">New</div>}
@@ -36,6 +43,4 @@ const NavMenu = {
       </div>
     )
   }
-}
-
-export default NavMenu
+})

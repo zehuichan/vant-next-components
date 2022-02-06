@@ -1,4 +1,10 @@
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'Content',
-  render: (h) => h('router-view')
-}
+  setup() {
+    return () => (
+      <router-view/>
+    )
+  }
+})
