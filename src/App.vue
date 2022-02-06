@@ -1,11 +1,10 @@
 <template>
-
+  <router-view/>
 </template>
 
-<script setup>
-
-</script>
-
 <style>
-
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
 </style>
