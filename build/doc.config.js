@@ -2,9 +2,9 @@ import baseConfig from './base.config'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-	...baseConfig,
-	base: '/',
-	build: {
-		outDir: 'docs',
-	},
+  ...baseConfig,
+  base: '/',
+  build: {
+    outDir: 'docs',
+  },
 })
