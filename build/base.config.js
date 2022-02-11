@@ -13,6 +13,23 @@ function markdownHighlight(str, lang) {
   return ''
 }
 
+function markdownCardWrapper(htmlCode) {
+  const group = htmlCode
+    .replace(/<h3/g, ':::<h3')
+    .replace(/<h2/g, ':::<h2')
+    .split(':::')
+
+  return group
+    .map((fragment) => {
+      if (fragment.indexOf('<h3') !== -1) {
+        return `<div class="v-doc-card">${fragment}</div>`
+      }
+
+      return fragment
+    })
+    .join('')
+}
+
 // 文档: https://vitejs.dev/config/
 export default {
   resolve: {
@@ -26,6 +43,10 @@ export default {
       include: [/\.vue$/, /\.md$/],
     }),
     vitePluginMd({
+      wrapperClasses: 'v-doc-content',
+      transforms: {
+        after: markdownCardWrapper,
+      },
       markdownItOptions: {
         typographer: false, // https://markdown-it.github.io/markdown-it/#MarkdownIt
         highlight: markdownHighlight,

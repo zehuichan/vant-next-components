@@ -1,7 +1,5 @@
 import { defineComponent } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-
-import './index.less'
+import { useRoute } from 'vue-router'
 
 import pkg from '/package.json'
 
@@ -19,7 +17,7 @@ export default defineComponent({
     const config = props.config
     const route = useRoute()
 
-    return ()=> (
+    return () => (
       <div class="v-doc-nav">
         {
           config.map((group, index) => (
@@ -33,7 +31,6 @@ export default defineComponent({
                     <router-link class={{ active: route.name === item.path }} to={item.path}>
                       {item.title}
                     </router-link>
-                    {item.new && <div class="new">New</div>}
                   </div>
                 ))
               }

@@ -43,7 +43,7 @@ export default {
 				{ path: 'badge', title: 'v-badge' },
 				{ path: 'ellipsis', title: 'v-ellipsis' },
 				{ path: 'time', title: 'v-time' },
-				{ path: 'svgicon', title: 'v-svg-icon' },
+				{ path: 'svg-icon', title: 'v-svg-icon' },
 				{ path: 'qrcode', title: 'v-qrcode' },
 				{ path: 'barcode', title: 'v-barcode' },
 			]

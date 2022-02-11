@@ -1,11 +1,9 @@
 import { defineComponent } from 'vue'
 
-import './index.less'
-
 // components
+import Header from './Header/index.jsx'
 import NavMenu from './NavMenu/index.jsx'
 import Content from './Content/index.jsx'
-import Trigger from './Trigger/index.jsx'
 
 // config
 import config from '@/config.js'
@@ -17,10 +15,8 @@ export default defineComponent({
   setup() {
     return () => (
       <div class="v-doc">
-        <div class="v-doc-aside">
-          <NavMenu config={nav}/>
-          <Trigger/>
-        </div>
+        <Header/>
+        <NavMenu config={nav}/>
         <div class="v-doc-container">
           <Content/>
         </div>

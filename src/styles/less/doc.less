@@ -7,17 +7,18 @@
   margin: 30px;
 }
 
-.v-doc-content .card {
+.v-doc-content .v-doc-card {
   margin-bottom: 24px;
   padding: 24px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 12px #ebedf0;
+  background-color: var(--bg-color-demo);
+  color: var(--text-primary);
+  border: 1px solid var(--component-border);
+  border-radius: 6px;
 }
 
 .v-doc-content a {
   margin: 0 1px;
-  color: #1989fa;
+  color: var(--text-interactive);
   -webkit-font-smoothing: auto;
 }
 
@@ -35,7 +36,7 @@
 .v-doc-content h4,
 .v-doc-content h5,
 .v-doc-content h6 {
-  color: #323233;
+  color: var(--text-primary);
   font-weight: normal;
   line-height: 1.5;
 }
@@ -79,58 +80,58 @@
 }
 
 .v-doc-content p {
-  color: #34495e;
+  color: var(--text-primary);
   font-size: 15px;
   line-height: 26px;
 }
 
-.v-doc-content .card > table {
+.v-doc-content .v-doc-card > table {
   width: 100%;
   margin-top: 12px;
-  color: #34495e;
+  color: var(--text-primary);
   font-size: 14px;
   line-height: 1.5;
   border-collapse: collapse;
 }
 
-.v-doc-content .card > table th {
+.v-doc-content .v-doc-card > table th {
   padding: 8px 10px;
   font-weight: 600;
   text-align: left;
 }
 
-.v-doc-content .card > table th:first-child {
+.v-doc-content .v-doc-card > table th:first-child {
   padding-left: 0;
 }
 
-.v-doc-content .card > table th:last-child {
+.v-doc-content .v-doc-card > table th:last-child {
   padding-right: 0;
 }
 
-.v-doc-content .card > table td {
+.v-doc-content .v-doc-card > table td {
   padding: 8px;
-  border-top: 1px solid #f1f4f8;
+  border-top: 1px solid var(--component-stroke);
 }
 
-.v-doc-content .card > table td:first-child {
+.v-doc-content .v-doc-card > table td:first-child {
   padding-left: 0;
 }
 
-.v-doc-content .card > table td:first-child code {
+.v-doc-content .v-doc-card > table td:first-child code {
   margin: 0;
   padding: 2px 6px;
-  color: #1989fa;
+  color: var(--text-interactive);
   font-weight: 600;
   font-size: 11px;
   background-color: rgba(25, 137, 250, 0.1);
   border-radius: 20px;
 }
 
-.v-doc-content .card > table td:last-child {
+.v-doc-content .v-doc-card > table td:last-child {
   padding-right: 0;
 }
 
-.v-doc-content .card > table em {
+.v-doc-content .v-doc-card > table em {
   color: #4fc08d;
   font-size: 14px;
   font-family: 'Source Code Pro', 'Monaco', 'Inconsolata', monospace;
@@ -138,8 +139,8 @@
   -webkit-font-smoothing: auto;
 }
 
-.v-doc-content .card > ul li,
-.v-doc-content .card > ol li {
+.v-doc-content .v-doc-card > ul li,
+.v-doc-content .v-doc-card > ol li {
   position: relative;
   margin: 5px 0 5px 10px;
   padding-left: 15px;
@@ -148,8 +149,8 @@
   line-height: 26px;
 }
 
-.v-doc-content .card > ul li::before,
-.v-doc-content .card > ol li::before {
+.v-doc-content .v-doc-card > ul li::before,
+.v-doc-content .v-doc-card > ol li::before {
   position: absolute;
   top: 0;
   left: 0;

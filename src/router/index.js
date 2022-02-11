@@ -9,17 +9,27 @@ const loadView = function () {
   const res = []
   const list = treeToList(nav, 'items')
   list.forEach(item => {
-    if (item.path) {
-      const tmp = {
-        path: '/' + item.path,
-        component: modules[`/packages/${item.path}/docs/README.md`],
-        name: item.path,
-        meta: {
-          title: item.title
-        }
+    const tmp = {
+      path: '/' + item.path,
+      component: modules[`/packages/${item.path}/docs/README.md`],
+      name: item.path,
+      meta: {
+        title: item.title
       }
-      res.push(tmp)
     }
+    if (item.path === 'home') {
+      tmp.component = () => import('@/markdown/home.md')
+    }
+    if (item.path === 'quickstart') {
+      tmp.component = () => import('@/markdown/quickstart.md')
+    }
+    if (item.path === 'jweixin') {
+      tmp.component = () => import('@/markdown/jweixin.md')
+    }
+    if (item.path === 'auth') {
+      tmp.component = () => import('@/markdown/auth.md')
+    }
+    res.push(tmp)
   })
 
   return res
@@ -63,7 +73,7 @@ export const router = createRouter({
   history: createWebHashHistory(),
   routes: routes,
   strict: true,
-  // scrollBehavior: () => ({ left: 0, top: 0 }),
+  scrollBehavior: () => ({ left: 0, top: 0 }),
 })
 
 // config router
