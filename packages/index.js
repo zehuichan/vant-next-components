@@ -1,13 +1,17 @@
 import pkg from '/package.json'
 
 import Badge from './badge'
+import SvgIcon from './svg-icon'
 
 const { version } = pkg
 
-function install(app) {
-  const components = [Badge]
+const components = [
+  Badge,
+  SvgIcon
+]
 
-  components.forEach(item => {
+const install = (app) => {
+  components.map(item => {
     if (item.install) {
       app.use(item)
     } else if (item.name) {
@@ -18,5 +22,6 @@ function install(app) {
 
 export default {
   version,
-  install
+  install,
+  ...components
 }
