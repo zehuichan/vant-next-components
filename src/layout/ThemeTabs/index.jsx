@@ -1,15 +1,19 @@
-import { computed, defineComponent, ref } from 'vue'
+import { defineComponent, ref, watchEffect } from 'vue'
 
 export default defineComponent({
   name: 'ThemeTabs',
   setup() {
-    const mode = ref('light')
+    const mode = ref(localStorage.getItem('theme') || 'light')
 
     const onClick = (val) => {
       mode.value = val
-      const isDark = mode.value === 'dark'
-      isDark ? document.documentElement.setAttribute('theme-mode', val) : document.documentElement.removeAttribute('theme-mode')
+      localStorage.setItem('theme', val)
     }
+
+    watchEffect(() => {
+      const isDark = mode.value === localStorage.getItem('theme')
+      isDark ? document.documentElement.setAttribute('theme-mode', mode.value) : document.documentElement.removeAttribute('theme-mode')
+    })
 
     return () => (
       <div class="theme-tabs">

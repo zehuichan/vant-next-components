@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="v-doc-card">
     <v-badge/>
     <v-badge status="error"/>
     <v-badge status="default"/>

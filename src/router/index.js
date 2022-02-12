@@ -9,6 +9,10 @@ const loadView = function () {
   const res = []
   const list = treeToList(nav, 'items')
   list.forEach(item => {
+    if (!item.path) {
+      return false
+    }
+
     const tmp = {
       path: '/' + item.path,
       component: modules[`/packages/${item.path}/docs/README.md`],
@@ -17,18 +21,23 @@ const loadView = function () {
         title: item.title
       }
     }
+
     if (item.path === 'home') {
       tmp.component = () => import('@/markdown/home.md')
     }
+
     if (item.path === 'quickstart') {
       tmp.component = () => import('@/markdown/quickstart.md')
     }
+
     if (item.path === 'jweixin') {
       tmp.component = () => import('@/markdown/jweixin.md')
     }
+
     if (item.path === 'auth') {
       tmp.component = () => import('@/markdown/auth.md')
     }
+
     res.push(tmp)
   })
 
@@ -61,7 +70,7 @@ import Layout from '@/layout/index.jsx'
 export const routes = [
   { path: '/', redirect: '/home' },
   {
-    path: '',
+    path: '/',
     component: Layout,
     children: loadView()
   },
