@@ -17,7 +17,7 @@ Vue.use(Vant)
 
 ### 安装
 
-```shell
+```bash
 npm i vantui-components -S
 ```
 

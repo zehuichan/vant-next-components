@@ -1,0 +1,26 @@
+# 忽略目录
+node_modules
+examples
+public
+dist
+docs
+public
+
+# 忽略指定文件
+vite.config.js
+babel.config.js
+.browserslistrc
+*.map
+.editorconfig
+deploy.sh
+postcss.config.js
+webstorm.config.js
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

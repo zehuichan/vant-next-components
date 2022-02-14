@@ -1,10 +1,6 @@
 import { defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
 
-import pkg from '/package.json'
-
-const { version } = pkg
-
 export default defineComponent({
   name: 'NavMenu',
   props: {
@@ -23,7 +19,7 @@ export default defineComponent({
           config.map((group, index) => (
             <div class="v-doc-nav__group" key={index}>
               <div class="v-doc-nav__title">
-                {group.title} {index === 0 ? <span class="tag">v {version}</span> : null}
+                {group.title}
               </div>
               {
                 group.items.map((item, groupIndex) => (

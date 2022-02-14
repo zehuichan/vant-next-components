@@ -123,8 +123,21 @@ img.badge {
 
 .v-doc-header__top-nav-item {
   margin-left: 16px;
-  cursor: pointer;
-  color: var(--text-primary);
+
+  a {
+    display: inline-flex;
+    color: var(--text-primary);
+    border-radius: var(--border-radius);
+    transition: all 0.2s linear 0s;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: var(--bg-color-container-hover);
+    }
+  }
 }
 
 .v-doc-nav {
@@ -135,7 +148,6 @@ img.badge {
   z-index: 1;
   min-width: 220px;
   max-width: 220px;
-  padding: 24px 0;
   overflow: auto;
   background-color: var(--bg-color-container);
   box-shadow: var(--aside-box-shadow);
@@ -153,16 +165,19 @@ img.badge {
   }
 
   &__group {
-    margin-bottom: 16px;
     padding-left: 12px;
   }
 
   &__title {
-    padding: 8px 0 8px 24px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
     color: var(--text-placeholder);
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 28px;
+    padding: 14px 12px 4px;
+    height: 40px;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 8px;
 
     .tag {
       font-size: 12px;

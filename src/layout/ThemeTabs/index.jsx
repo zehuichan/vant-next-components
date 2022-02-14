@@ -1,23 +1,22 @@
-import { defineComponent, ref, watchEffect } from 'vue'
+import { defineComponent } from 'vue'
+import { useDark, useToggle } from '@vueuse/core'
 
 export default defineComponent({
   name: 'ThemeTabs',
   setup() {
-    const mode = ref(localStorage.getItem('theme') || 'light')
-
-    const onClick = (val) => {
-      mode.value = val
-      localStorage.setItem('theme', val)
-    }
-
-    watchEffect(() => {
-      const isDark = mode.value === localStorage.getItem('theme')
-      isDark ? document.documentElement.setAttribute('theme-mode', mode.value) : document.documentElement.removeAttribute('theme-mode')
+    const isDark = useDark({
+      selector: 'html',
+      attribute: 'theme-mode',
+      valueDark: 'dark',
+      valueLight: 'light',
+      storageKey: 'theme'
     })
+
+    const toggleDark = useToggle(isDark)
 
     return () => (
       <div class="theme-tabs">
-        <div class={['item', 'light', { active: mode.value === 'light' }]} onClick={() => onClick('light')}>
+        <div class={['item', 'light', { active: !isDark.value }]} onClick={toggleDark}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fill="currentColor"
@@ -57,7 +56,7 @@ export default defineComponent({
             />
           </svg>
         </div>
-        <div class={['item', 'dark', { active: mode.value === 'dark' }]} onClick={() => onClick('dark')}>
+        <div class={['item', 'dark', { active: isDark.value }]} onClick={toggleDark}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fill="currentColor"
