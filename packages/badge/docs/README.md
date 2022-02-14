@@ -2,7 +2,9 @@
 import demo from './demo.vue'
 </script>
 
+<DemoCard>
 <demo/>
+</DemoCard>
 
 ### 介绍
 
