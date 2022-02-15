@@ -2,7 +2,7 @@ import { defineComponent } from 'vue'
 import pkg from '/package.json'
 import config from '@/config'
 // components
-import ThemeTabs from '../ThemeTabs/index.jsx'
+import ThemeTabs from '@/components/ThemeTabs.vue'
 
 const { version } = pkg
 

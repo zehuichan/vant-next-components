@@ -8,6 +8,7 @@ import App from './App.vue'
 import './styles/less/index.less'
 
 import { setupVant } from './plugins/vant'
+import { setupStore } from './store'
 import { setupVcomponents } from './plugins/vcomponents'
 import { router, setupRouter } from './router'
 import { setupRouterGuard } from './router/guard'
@@ -16,6 +17,7 @@ async function bootstrap() {
   const app = createApp(App)
 
   setupVant(app)
+  setupStore(app)
   setupVcomponents(app)
   setupRouterGuard(router)
   setupRouter(app)

@@ -1,4 +1,5 @@
 import pkg from '/package.json'
+import './style/index.less'
 
 import Badge from './badge'
 import SvgIcon from './svg-icon'
