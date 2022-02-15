@@ -11,4 +11,4 @@ deploy:
   local_dir: docs
   keep_history: true
   on:
-    branch: master:gh-pages
+    branch: master
