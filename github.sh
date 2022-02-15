@@ -14,6 +14,6 @@ git add -A
 git commit -m 'deploy'
 
 # 如果你想要部署到 https://<USERNAME>.github.io
-git push -f https://github.com/zehuichan/vant-next-components.git master:gh-pages
+git push -f git@github.com:zehuichan/vant-next-components.git master:gh-pages
 
 cd -
