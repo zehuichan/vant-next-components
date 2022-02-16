@@ -1,6 +1,6 @@
 import baseConfig from './base.config'
-import { resolve, camelize } from './utils'
 import { defineConfig } from 'vite'
+import { resolve, camelize } from './utils'
 import pkg from '../package.json'
 
 const { name } = pkg
@@ -24,6 +24,9 @@ export default defineConfig({
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['vue']
     }
-  }
+  },
+  plugins: [
+    ...baseConfig.plugins,
+  ]
 })
 
