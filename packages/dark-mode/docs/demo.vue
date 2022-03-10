@@ -18,6 +18,11 @@
       <van-cell title="单元格" is-link/>
     </van-cell-group>
   </demo-card>
+  <demo-card title="Field 输入框">
+    <van-cell-group inset>
+      <van-field v-model="value" label="文本" placeholder="请输入用户名"/>
+    </van-cell-group>
+  </demo-card>
 </template>
 
 <style lang="less">
@@ -27,3 +32,16 @@
   }
 }
 </style>
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const value = ref('')
+    return {
+      value
+    }
+  }
+
+}
+</script>

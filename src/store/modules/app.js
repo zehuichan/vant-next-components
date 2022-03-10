@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { useDark, useStorage } from '@vueuse/core/index'
 
-
 export const useAppStore = defineStore({
   id: 'app',
   state: () => {

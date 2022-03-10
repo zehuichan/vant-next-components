@@ -1,6 +1,6 @@
 export default {
   title: 'Vant Next Components',
-  github: 'https://zehuichan.github.io/vant-next-components/',
+  github: 'https://github.com/zehuichan/vant-next-components/',
   nav: [
     {
       title: '开发指南',
