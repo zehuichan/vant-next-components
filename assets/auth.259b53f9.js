@@ -1,4 +1,4 @@
-import{o as n,i as a,m as p}from"./vendor.a0f7cb7c.js";const l={class:"v-doc-content"},e=p(`<div class="v-doc-card"><h3>\u4ECB\u7ECD</h3><p>\u524D\u7AEF\u5FAE\u4FE1\u516C\u4F17\u53F7\u6388\u6743\u98DF\u7528\u65B9\u6CD5\uFF0C\u652F\u6301\u533A\u5206 <code>appid</code>\u3002</p></div><div class="v-doc-card"><h3>\u524D\u7F6E\u6761\u4EF6</h3><pre><code>// .env.development
+import{o as n,e as a,k as p}from"./vendor.c40b17d1.js";const l={class:"v-doc-content"},e=p(`<div class="v-doc-card"><h3>\u4ECB\u7ECD</h3><p>\u524D\u7AEF\u5FAE\u4FE1\u516C\u4F17\u53F7\u6388\u6743\u98DF\u7528\u65B9\u6CD5\uFF0C\u652F\u6301\u533A\u5206 <code>appid</code>\u3002</p></div><div class="v-doc-card"><h3>\u524D\u7F6E\u6761\u4EF6</h3><pre><code>// .env.development
 NODE_ENV = &#39;development&#39;
 
 # appid

@@ -1,4 +1,4 @@
-import{o as a,i as n,m as l}from"./vendor.a0f7cb7c.js";const p={class:"v-doc-content"},c=l(`<div class="v-doc-card"><h3>\u4ECB\u7ECD</h3><p>\u5FAE\u4FE1JSSDK\u98DF\u7528\u65B9\u6CD5\u3002</p></div><div class="v-doc-card"><h3>\u524D\u7F6E\u6761\u4EF6</h3><pre><code class="language-js"><span class="hljs-comment">// main.js</span>
+import{o as a,e as n,k as l}from"./vendor.c40b17d1.js";const p={class:"v-doc-content"},c=l(`<div class="v-doc-card"><h3>\u4ECB\u7ECD</h3><p>\u5FAE\u4FE1JSSDK\u98DF\u7528\u65B9\u6CD5\u3002</p></div><div class="v-doc-card"><h3>\u524D\u7F6E\u6761\u4EF6</h3><pre><code class="language-js"><span class="hljs-comment">// main.js</span>
 <span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#39;vue&#39;</span>
 
 <span class="hljs-keyword">import</span> <span class="hljs-title class_">JWeixin</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#39;vantui-components/lib/plugins/jweixin&#39;</span>
