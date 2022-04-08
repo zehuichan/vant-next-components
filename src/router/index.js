@@ -3,9 +3,8 @@ import config from '@/config.js'
 
 const { nav } = config
 
-const modules = import.meta.glob('/packages/*/docs/README.md')
-
 const loadView = function () {
+  const dynamicViewsModules = import.meta.globEager('/packages/**/*.md')
   const res = []
   const list = treeToList(nav, 'items')
   list.forEach(item => {
@@ -15,27 +14,11 @@ const loadView = function () {
 
     const tmp = {
       path: '/' + item.path,
-      component: modules[`/packages/${item.path}/docs/README.md`],
+      component: dynamicImport(dynamicViewsModules, item.path),
       name: item.path,
       meta: {
         title: item.title
       }
-    }
-
-    if (item.path === 'home') {
-      tmp.component = () => import('@/markdown/home.md')
-    }
-
-    if (item.path === 'quickstart') {
-      tmp.component = () => import('@/markdown/quickstart.md')
-    }
-
-    if (item.path === 'jweixin') {
-      tmp.component = () => import('@/markdown/jweixin.md')
-    }
-
-    if (item.path === 'auth') {
-      tmp.component = () => import('@/markdown/auth.md')
     }
 
     res.push(tmp)
@@ -57,6 +40,23 @@ const treeToList = function (data, children = 'children') {
     }
   })
   return tmp
+}
+
+const dynamicImport = (dynamicViewsModules, component) => {
+  const keys = Object.keys(dynamicViewsModules)
+  const matchKeys = keys.filter((key) => key.includes(component))
+  if (matchKeys?.length === 1) {
+    const matchKey = matchKeys[0]
+    return dynamicViewsModules[matchKey].default
+  } else if (matchKeys?.length > 1) {
+    console.warn(
+      'Please do not create `.{vue,jsx,tsx}` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure'
+    )
+    return false
+  } else {
+    console.warn(`component: ${component} is not found`)
+    return false
+  }
 }
 
 /* Layout */
