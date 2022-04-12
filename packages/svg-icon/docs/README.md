@@ -11,7 +11,6 @@ import demo from './demo.vue'
 ### 基础用法
 
 ```html
-
 <v-svg-icon name="icon-copyright"/>
 ```
 

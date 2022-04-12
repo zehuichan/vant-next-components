@@ -25,13 +25,6 @@
   </demo-card>
 </template>
 
-<style lang="less">
-.demo-button {
-  .van-button + .van-button {
-    margin-left: 10px;
-  }
-}
-</style>
 <script>
 import { ref } from 'vue'
 
@@ -45,3 +38,11 @@ export default {
 
 }
 </script>
+
+<style lang="less">
+.demo-button {
+  .van-button + .van-button {
+    margin-left: 10px;
+  }
+}
+</style>
