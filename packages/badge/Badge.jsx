@@ -15,13 +15,12 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const { color, status } = props
 
     return () => (
-      <span class={['v-badge v-badge-status', color]}>
+      <span class={['v-badge v-badge-status', props.color]}>
         <span
-          class={['v-badge-status-dot', `v-badge-status-${status}`]}
-          style={{ 'background-color': color }}
+          class={['v-badge-status-dot', `v-badge-status-${props.status}`]}
+          style={{ 'background-color': props.color }}
         />
         <span class="v-badge-status-text">{slots.default?.()}</span>
       </span>
