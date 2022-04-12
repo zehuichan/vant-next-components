@@ -1,0 +1,30 @@
+.v-card {
+  border-radius: 2px;
+  background-color: var(--van-background-2);
+  overflow: hidden;
+  color: var(--van-text-color);
+  transition: .3s;
+  font-size: 14px;
+
+  &.is-always-shadow {
+    box-shadow: 0 0 12px rgba(0, 0, 0, .12);
+  }
+
+  &.is-never-shadow {
+
+  }
+}
+
+.v-card__header {
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+
+.v-card__body {
+  padding: 16px;
+}
+
+.v-card__extra,
+.v-card__footer {
+  padding: 12px 16px;
+}
