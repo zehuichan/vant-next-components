@@ -8,6 +8,7 @@
     "release": "release-it && git push --follow-tags origin main"
   },
   "peerDependencies": {
+    "@vueuse/core": "^8.2.0",
     "vant": "^4.0.0-alpha.1",
     "vue": "^3.2.31"
   },
@@ -22,7 +23,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.12",
     "vant": "^4.0.0-alpha.1",
-    "vite": "^2.7.2",
+    "vite": "^2.9.1",
     "vite-plugin-copy": "^0.1.6",
     "vite-plugin-md": "^0.11.7",
     "vue": "^3.2.31",
