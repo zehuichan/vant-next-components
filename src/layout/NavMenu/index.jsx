@@ -25,7 +25,7 @@ export default defineComponent({
                 group.items.map((item, groupIndex) => (
                   <div class="v-doc-nav__item" key={groupIndex}>
                     <router-link class={{ active: route.name === item.path }} to={item.path}>
-                      {item.title}
+                      <span>{item.title}</span>{item.new && <span>🆕</span>}
                     </router-link>
                   </div>
                 ))

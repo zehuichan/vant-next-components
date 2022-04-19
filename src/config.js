@@ -18,28 +18,29 @@ export default {
     {
       title: '业务组件',
       items: [
-        { path: 'table', title: 'v-table', new: true },
-        { path: 'space', title: 'v-space', new: true },
-        { path: 'backtop', title: 'v-backtop', new: true },
+        { path: 'table', title: 'v-table' },
+        { path: 'space', title: 'v-space' },
+        { path: 'backtop', title: 'v-backtop' },
         { path: 'toolbar', title: 'v-tool-bar' },
+        // { path: 'floating-panel', title: 'v-floating-panel', new: true },
       ]
     },
     {
       title: '表单组件',
       items: [
         { path: 'field', title: 'v-field' },
-        { path: 'autocomplete', title: 'v-auto-complete' },
+        { path: 'auto-complete', title: 'v-auto-complete' },
         { path: 'calendar', title: 'v-calendar' },
         { path: 'cascader', title: 'v-cascader' },
         { path: 'area', title: 'v-area' },
         { path: 'picker', title: 'v-picker' },
         { path: 'checker', title: 'v-checker', new: true },
-        { path: 'datepicker', title: 'v-date-picker' },
+        { path: 'date-picker', title: 'v-date-picker' },
         { path: 'switch', title: 'v-switch' },
         { path: 'stepper', title: 'v-stepper' },
         { path: 'rate', title: 'v-rate' },
         { path: 'slider', title: 'v-slider' },
-        { path: 'radiobutton', title: 'v-radio-button' },
+        { path: 'radio-button', title: 'v-radio-button' },
         { path: 'form', title: 'v-form' },
       ]
     },
@@ -65,8 +66,8 @@ export default {
     {
       title: 'WeChat',
       items: [
-        { path: 'jweixin', title: 'jweixin', new: true },
-        { path: 'auth', title: 'auth', new: true },
+        { path: 'jweixin', title: 'jweixin' },
+        { path: 'auth', title: 'auth' },
       ]
     }
   ]
