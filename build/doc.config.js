@@ -1,10 +1,12 @@
+import { mergeConfig } from 'vite'
 import baseConfig from './base.config'
-import { defineConfig } from 'vite'
 
-export default defineConfig({
-  ...baseConfig,
-  base: '/vant-next-components/',
-  build: {
-    outDir: 'docs',
+export default mergeConfig(
+  {
+    base: '/vant-next-components/',
+    build: {
+      outDir: 'docs',
+    },
   },
-})
+  baseConfig
+)
