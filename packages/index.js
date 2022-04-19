@@ -1,19 +1,25 @@
 import pkg from '/package.json'
 
-import Badge from './badge'
-import SvgIcon from './svg-icon'
-import Price from './price'
 import Backtop from './backtop'
+import Badge from './badge'
 import Card from './card'
+import F2 from './f2'
+import Price from './price'
+import Space from './space'
+import SvgIcon from './svg-icon'
+import Table from './table'
 
 const { version } = pkg
 
 const components = [
-  Badge,
-  SvgIcon,
-  Price,
   Backtop,
-  Card
+  Badge,
+  Card,
+  F2,
+  Price,
+  Space,
+  SvgIcon,
+  Table,
 ]
 
 const install = (app) => {
