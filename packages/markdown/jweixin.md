@@ -5,83 +5,72 @@
 ### 前置条件
 
 ```js
-// main.js
-import Vue from 'vue'
+import { nextTick, ref } from 'vue'
+import { useScriptTag } from '@vueuse/core'
+// 替换成你后端接口=====
+import { wxconfig } from '@/api/user'
+// 替换成你后端接口=====
 
-import JWeixin from 'vantui-components/lib/plugins/jweixin'
+export default function useWeixin(options = { debug: false }) {
+  const { load } = useScriptTag('//res.wx.qq.com/open/js/jweixin-1.6.0.js')
+  const ready = ref(false)
+  const instance = ref(null)
 
-Vue.use(JWeixin)
+  async function initWxConfig() {
+    await load()
+    await nextTick()
+    instance.value = window.wx
+    const url = encodeURIComponent(location.href.split('#')[0])
+    const res = await wxconfig(url)
+    const config = Object.assign({}, res, options)
+    instance.value.config(config)
+    instance.value.ready(() => {
+      ready.value = true
+    })
+    instance.value.error(() => {
+      ready.value = false
+    })
+  }
+
+  !ready.value && initWxConfig()
+
+  return [ready, instance]
+}
 ```
 
 ### 初始化
 
-一般会放到 `store` 里面使用，这样会方便我到处调用。
-
 ```js
-// store => app.js
-const actions = {
-  initWxConfig({ commit }) {
-    return new Promise((resolve, reject) => {
-      const url = encodeURIComponent(window.location.href.split('#')[0])
-      // wxconfig 后端api
-      wxconfig(url).then((res) => {
-        const config = Object.assign({}, res, { debug: false })
-        Vue.prototype.$wx.config(config)
-        Vue.prototype.$wx.ready(() => {
-          commit('SET_WECHAT_READY', true)
-          resolve()
-        })
-        Vue.prototype.$wx.error((error) => {
-          commit('SET_WECHAT_READY', false)
-          reject()
-        })
-      }).catch((error) => {
-        commit('SET_WECHAT_READY', false)
-        reject()
-      })
-    })
-  },
-}
+import { useWeixin } from '@/hooks'
 
-// 全局路由守卫
-router.beforeEach(async (to, from, next) => {
-  // 初始化微信jssdk
-  if (!store.getters.wechatReady) {
-    await store.dispatch('user/initWxConfig')
-  }
-})
+const [ready, wx] = useWeixin()
 ```
 
 ### scanQRCode
 
 ```js
-export default {
-  methods: {
-    scanQRCode() {
-      this.$wx.scanQRCode({
-        needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-        scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
-        success: function (res) {
-          var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-        }
-      })
+const scanQRCode = () => {
+  wx.value.scanQRCode({
+    needResult: 1,
+    scanType: ['qrCode', 'barCode'],
+    success: (res) => {
+      alert(res.resultStr)
     }
-  }
+  })
 }
 ```
 
 ### previewImage
 
 ```js
-export default {
-  methods: {
-    previewImage({ path }) {
-      const urls = this.files.map(item => item.path)
-      this.$wx.previewImage({
-        current: path,
-        urls: urls
-      })
-    },
-  }
+const previewImage = () => {
+  wx.value.previewImage({
+    current: 'https://img.yzcdn.cn/vant/apple-1.jpg',
+    urls: [
+      'https://img.yzcdn.cn/vant/apple-1.jpg',
+      'https://img.yzcdn.cn/vant/apple-2.jpg',
+      'https://img.yzcdn.cn/vant/apple-3.jpg'
+    ]
+  })
 }
 ```
