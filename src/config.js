@@ -64,7 +64,7 @@ export default {
       ]
     },
     {
-      title: 'WeChat',
+      title: 'WeChat Hooks',
       items: [
         { path: 'jweixin', title: 'jweixin' },
         { path: 'auth', title: 'auth' },

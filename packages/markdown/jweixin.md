@@ -2,7 +2,7 @@
 
 微信JSSDK食用方法。
 
-### 前置条件
+### @/hooks/useWeixin.js
 
 ```js
 import { nextTick, ref } from 'vue'
