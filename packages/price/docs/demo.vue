@@ -17,6 +17,8 @@
 import { ref } from 'vue'
 import { useIntervalFn } from '@vueuse/core'
 
+import VPrice from '..'
+
 const price = ref(0)
 
 const { pause, resume, isActive } = useIntervalFn(() => {

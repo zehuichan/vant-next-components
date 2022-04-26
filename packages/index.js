@@ -3,6 +3,7 @@ import pkg from '/package.json'
 import Backtop from './backtop'
 import Badge from './badge'
 import Card from './card'
+import Divider from './divider'
 import F2 from './f2'
 import Price from './price'
 import Space from './space'
@@ -15,6 +16,7 @@ const components = [
   Backtop,
   Badge,
   Card,
+  Divider,
   F2,
   Price,
   Space,

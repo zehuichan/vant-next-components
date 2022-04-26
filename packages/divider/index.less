@@ -1,0 +1,71 @@
+.v-divider {
+  display: flex;
+  align-items: center;
+  color: var(--van-divider-text-color);
+  font-size: var(--van-divider-font-size);
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  border-style: solid;
+  border-width: 0;
+
+  &-vertical {
+    position: relative;
+    top: -0.06em;
+    display: inline-block;
+    height: 0.9em;
+    margin: 0 8px;
+    vertical-align: middle;
+    border-top: 0;
+    border-left: 1px solid var(--van-divider-border-color);
+  }
+
+  &-horizontal {
+    display: flex;
+    clear: both;
+    width: 100%;
+    min-width: 100%; // Fix https://github.com/ant-design/ant-design/issues/10914
+    margin: 24px 0;
+
+    &::before {
+      display: block;
+      flex: 1;
+      box-sizing: border-box;
+      height: 1px;
+      border-color: inherit;
+      border-style: inherit;
+      border-width: var(--van-border-width) 0 0;
+      transform: scaleY(.5);
+      content: '';
+    }
+  }
+
+  &-horizontal&-with-text {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+
+    &::before,
+    &::after {
+      display: block;
+      flex: 1;
+      box-sizing: border-box;
+      height: 1px;
+      border-color: inherit;
+      border-style: inherit;
+      border-width: var(--van-border-width) 0 0;
+      transform: scaleY(.5);
+      content: '';
+    }
+  }
+
+  &-inner-text {
+    display: inline-block;
+    padding: 0 1em;
+  }
+
+  &-dashed {
+    border-style: dashed;
+  }
+}

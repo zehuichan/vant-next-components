@@ -22,6 +22,7 @@ export default {
         { path: 'space', title: 'v-space' },
         { path: 'backtop', title: 'v-backtop' },
         { path: 'toolbar', title: 'v-tool-bar' },
+        { path: 'divider', title: 'v-divider' },
         // { path: 'floating-panel', title: 'v-floating-panel', new: true },
       ]
     },
