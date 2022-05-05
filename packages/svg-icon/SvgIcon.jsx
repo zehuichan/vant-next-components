@@ -12,14 +12,6 @@ export default defineComponent({
     classPrefix: String,
     size: [String, Number]
   },
-  methods: {
-    addUnit(value) {
-      return this.isNumeric(value) ? `${value}px` : String(value)
-    },
-    isNumeric(val) {
-      return typeof val === 'number' || /^\d+(\.\d+)?$/.test(val)
-    }
-  },
   setup(props) {
     const { name, classPrefix, size } = props
 

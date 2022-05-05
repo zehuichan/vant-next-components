@@ -40,7 +40,7 @@ export default defineComponent({
       },
     ])
 
-    function getMargin(size) {
+    const getMargin = (size) => {
       if (isNumber(size)) {
         return size
       }

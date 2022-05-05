@@ -22,7 +22,7 @@ export default {
         { path: 'space', title: 'v-space' },
         { path: 'backtop', title: 'v-backtop' },
         { path: 'toolbar', title: 'v-tool-bar' },
-        { path: 'divider', title: 'v-divider' },
+        { path: 'divider', title: 'v-divider', new: true },
         // { path: 'floating-panel', title: 'v-floating-panel', new: true },
       ]
     },
@@ -42,6 +42,7 @@ export default {
         { path: 'rate', title: 'v-rate' },
         { path: 'slider', title: 'v-slider' },
         { path: 'radio-button', title: 'v-radio-button' },
+        { path: 'segmented', title: 'v-segmented', new: true },
         { path: 'form', title: 'v-form' },
       ]
     },
