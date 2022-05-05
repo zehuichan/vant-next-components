@@ -6,6 +6,7 @@ import Card from './card'
 import Divider from './divider'
 import F2 from './f2'
 import Price from './price'
+import Segmented from './segmented'
 import Space from './space'
 import SvgIcon from './svg-icon'
 import Table from './table'
@@ -19,6 +20,7 @@ const components = [
   Divider,
   F2,
   Price,
+  Segmented,
   Space,
   SvgIcon,
   Table,

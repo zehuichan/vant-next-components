@@ -1,0 +1,111 @@
+:root,
+.van-theme-light {
+  --segmented-bg: fade(#000, 4%);
+  --segmented-hover-bg: fade(#000, 6%);
+  --segmented-selected-bg: #fff;
+  --segmented-label-color: fade(#000, 65%);
+  --segmented-label-hover-color: #262626;
+  --segmented-disabled-color: fade(#000, 25%);
+}
+
+.van-theme-dark {
+  --segmented-bg: fade(#000, 25%);
+  --segmented-hover-bg: fade(#000, 45%);
+  --segmented-selected-bg: #333;
+  --segmented-label-color: fade(#fff, 65%);
+  --segmented-label-hover-color: fade(#fff, 85%);
+  --segmented-disabled-color: fade(#fff, 30%);
+}
+
+.v-segmented {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  justify-items: flex-start;
+  color: var(--segmented-label-color);
+  background-color: var(--segmented-bg);
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px var(--segmented-bg);
+  transition: all .3s cubic-bezier(.645, .045, .355, 1);
+
+  // hover/focus styles
+  &:not(&-disabled) {
+    &:hover,
+    &:focus {
+      background-color: var(--segmented-hover-bg);
+      box-shadow: 0 0 0 2px var(--segmented-hover-bg);
+    }
+  }
+
+  // block styles
+  &&-block {
+    display: flex;
+  }
+
+  &&-block &-item {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &-item {
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+
+
+    &-selected {
+      background-color: var(--segmented-selected-bg);
+      border-radius: 2px;
+      box-shadow: 0 2px 8px -2px fade(#000, 5%), 0 1px 4px -1px fade(#000, 7%), 0 0 1px fade(#000, 8%);
+      color: var(--segmented-label-hover-color);
+    }
+
+    &:hover,
+    &:focus {
+      color: var(--segmented-label-hover-color);
+    }
+
+    &-label {
+      min-height: 28px;
+      padding: 0 11px;
+      line-height: 28px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      word-break: keep-all;
+    }
+  }
+
+  // size styles
+  &&-lg &-item-label {
+    min-height: 36px;
+    padding: 0 11px;
+    font-size: 16px;
+    line-height: 36px;
+  }
+
+  &&-sm &-item-label {
+    min-height: 20px;
+    padding: 0 7px;
+    line-height: 20px;
+  }
+
+  &-disabled &-item,
+  &-item-disabled {
+    &,
+    &:hover,
+    &:focus {
+      color: var(--segmented-disabled-color);
+      cursor: not-allowed;
+    }
+  }
+}
