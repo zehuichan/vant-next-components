@@ -2,7 +2,7 @@
 import demo from './demo.vue'
 </script>
 
-<demo/>
+<demo />
 
 ### 介绍
 
@@ -12,7 +12,7 @@ import demo from './demo.vue'
 
 ```html
 <!--基础用法-->
-<v-backtop/>
+<v-backtop />
 ```
 
 ## API

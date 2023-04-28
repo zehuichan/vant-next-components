@@ -1,3 +1,5 @@
+import 'virtual:svg-icons-register'
+
 // with polyfills
 import '@vant/touch-emulator'
 

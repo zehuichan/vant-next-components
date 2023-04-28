@@ -1,4 +1,4 @@
-import Vcomponents from '../../packages'
+import Vcomponents from 'packages'
 // components
 import DemoCard from '../components/DemoCard.vue'
 

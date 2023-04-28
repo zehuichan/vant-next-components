@@ -1,15 +1,14 @@
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import getPageTitle from '@/utils/get-page-title'
 
-NProgress.configure({ showSpinner: false }) // NProgress Configuration
+import { useTitle } from '@vueuse/core'
 
 export function setupRouterGuard(router) {
   router.beforeEach(async (to, from) => {
     // start progress bar
     NProgress.start()
     // set page title
-    document.title = getPageTitle(to.meta.title)
+    useTitle(to.meta.title)
   })
 
   router.afterEach((to, from) => {

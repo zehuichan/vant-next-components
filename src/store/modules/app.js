@@ -7,9 +7,8 @@ export const useAppStore = defineStore({
     return {
       mode: useStorage('vantTheme'),
       isDark: useDark({
-        selector: 'body',
-        valueDark: 'van-theme-dark',
-        valueLight: 'van-theme-ligtht',
+        valueDark: 'dark',
+        valueLight: 'ligtht',
         storageKey: 'vantTheme'
       })
     }

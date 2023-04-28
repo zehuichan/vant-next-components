@@ -1,7 +1,7 @@
-import path from 'path'
+import { resolve } from 'path'
 
-export function resolve(dir) {
-  return path.join(__dirname, '../', dir)
+export function pathResolve(dir) {
+  return resolve(process.cwd(), '.', dir)
 }
 
 export function camelize(name) {
