@@ -1,5 +1,6 @@
 import pkg from '/package.json'
 
+import Autocomplete from './autocomplete'
 import Backtop from './backtop'
 import Badge from './badge'
 import Card from './card'
@@ -14,6 +15,7 @@ import Table from './table'
 const { version } = pkg
 
 const components = [
+  Autocomplete,
   Backtop,
   Badge,
   Card,

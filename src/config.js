@@ -30,7 +30,7 @@ export default {
       title: '表单组件',
       items: [
         { path: 'field', title: 'v-field' },
-        { path: 'auto-complete', title: 'v-auto-complete' },
+        { path: 'autocomplete', title: 'v-autocomplete' },
         { path: 'calendar', title: 'v-calendar' },
         { path: 'cascader', title: 'v-cascader' },
         { path: 'area', title: 'v-area' },
