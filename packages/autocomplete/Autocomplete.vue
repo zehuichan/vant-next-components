@@ -1,10 +1,10 @@
 <template>
   <div class="autocomplete">
-    <van-popover v-model:show="suggestionVisible" placement="bottom-end">
+    <van-popover ref="popperRef" :show="show" placement="bottom-end">
       <div class="autocomplete--suggestion__popover">
         <div class="autocomplete--suggestion__list">
           <div
-            v-for="(item, index) in suggestions"
+            v-for="(item, index) in getOptions"
             class="autocomplete--suggestion__item"
             :class="{highlighted: highlightedIndex === index}"
             @click="handleSelect(item)"
@@ -16,9 +16,10 @@
       <template #reference>
         <van-field
           v-bind="$attrs"
-          :model-value="modelValue"
-          @update:model-value="handleInput"
+          v-model="state"
+          autocomplete="off"
           @focus="handleFocus"
+          @blur="handleBlur"
         />
       </template>
     </van-popover>
@@ -26,124 +27,159 @@
 </template>
 
 <script>
-import { computed, defineComponent, ref } from 'vue'
-import { debounce } from 'lodash-es'
+import { computed, defineComponent, nextTick, onMounted, ref, unref, watch } from 'vue'
+import { get, omit } from 'lodash-es'
+import { useVModel } from '@vueuse/core'
 
-import { isArray } from '../utils/is.js'
+import { isFunction } from '../utils/is.js'
 
 export default defineComponent({
   name: 'VAutocomplete',
   props: {
-    modelValue: String,
-    debounce: {
-      type: Number,
-      default: 300,
+    modelValue: null,
+    columns: Array,
+    numberToString: Boolean,
+    api: {
+      type: Function,
+      default: null
+    },
+    // api params
+    params: null,
+    // support xxx.xxx.xx
+    resultField: {
+      type: String,
+      default: ''
+    },
+    labelField: {
+      type: String,
+      default: 'label'
+    },
+    valueField: {
+      type: String,
+      default: 'value'
+    },
+    immediate: {
+      type: Boolean,
+      default: true
+    },
+    alwaysLoad: {
+      type: Boolean,
+      default: false
     },
     placement: {
       type: String,
       default: 'bottom-end'
-    },
-    valueKey: {
-      type: String,
-      default: 'value'
-    },
-    fetchSuggestions: Function,
-    triggerOnFocus: {
-      type: Boolean,
-      default: true
-    },
-    highlightFirstItem: {
-      type: Boolean,
-      default: false,
-    },
+    }
   },
   setup(props, { emit }) {
-    let readonly = false
     let ignoreFocusEvent = false
-    const activated = ref(false)
-    const suggestions = ref([])
-    const loading = ref(false)
-    const highlightedIndex = ref(-1)
-    const suggestionDisabled = ref(false)
 
-    const suggestionVisible = computed(() => {
-      const isValidData = suggestions.value.length > 0
-      return (isValidData || loading.value) && activated.value
+    const popperRef = ref(null)
+    const show = ref(true)
+    const options = ref([])
+    const loading = ref(false)
+    const isFirstLoad = ref(true)
+
+    const state = useVModel(props, 'modelValue', emit)
+
+    const getOptions = computed(() => {
+      const {
+        labelField,
+        valueField,
+        numberToString,
+        columns: defaultOptions
+      } = props
+
+      return (defaultOptions ?? unref(options)).reduce((prev, next) => {
+        if (next) {
+          const value = next[valueField]
+          prev.push({
+            ...omit(next, [labelField, valueField]),
+            label: next[labelField],
+            value: numberToString ? `${value}` : value
+          })
+        }
+        return prev
+      }, [])
     })
 
-    async function getData(queryString) {
-      if (suggestionDisabled.value) return
-
-      const cb = (suggestionList) => {
-        loading.value = false
-        if (suggestionDisabled.value) return
-
-        if (isArray(suggestionList)) {
-          suggestions.value = suggestionList
-          highlightedIndex.value = props.highlightFirstItem ? 0 : -1
-        } else {
-          console.error('[VantComponents Error][Autocomplete]autocomplete suggestions must be an array')
-        }
-      }
-
-      loading.value = true
-      if (isArray(props.fetchSuggestions)) {
-        cb(props.fetchSuggestions)
-      } else {
-        const result = await props.fetchSuggestions(queryString, cb)
-        if (isArray(result)) cb(result)
-      }
-    }
-
-    const debouncedGetData = debounce(getData, props.debounce)
-
-    function handleInput(value) {
-      const valuePresented = !!value
-
-      emit('input', value)
-      emit('update:modelValue', value)
-
-      suggestionDisabled.value = false
-      activated.value ||= valuePresented
-
-      if (!props.triggerOnFocus && !value) {
-        suggestionDisabled.value = true
-        suggestions.value = []
-        return
-      }
-
-      debouncedGetData(value)
-    }
+    watch(
+      () => props.params,
+      () => {
+        !unref(isFirstLoad) && fetch()
+      },
+      { deep: true }
+    )
 
     function handleFocus(evt) {
       if (!ignoreFocusEvent) {
-        activated.value = true
+        show.value = true
         emit('focus', evt)
-
-        if (props.triggerOnFocus && !readonly) {
-          debouncedGetData(String(props.modelValue))
-        }
       } else {
         ignoreFocusEvent = false
       }
     }
 
-    function handleSelect(item) {
-      emit('update:modelValue', item[props.valueKey])
-      emit('select', item)
-      activated.value = false
-      suggestions.value = []
-      highlightedIndex.value = -1
+    async function handleBlur(evt) {
+      await nextTick()
+      console.log(popperRef.value, document.activeElement)
+      if (popperRef.value.$el.contains(document.activeElement)) {
+        ignoreFocusEvent = true
+        return
+      }
     }
 
+    async function fetch() {
+      const { api, options: defaultOptions = [] } = props
+      if (defaultOptions.length || !api || !isFunction(api)) return
+      options.value = []
+      try {
+        loading.value = true
+        const res = await api(props.params)
+        if (Array.isArray(res)) {
+          options.value = res
+          emitChange()
+          return
+        }
+        if (props.resultField) {
+          options.value = get(res, props.resultField) || []
+        }
+        emitChange()
+      } catch (error) {
+        console.warn(error)
+      } finally {
+        loading.value = false
+      }
+    }
+
+    async function handleFetch(visible) {
+      if (visible) {
+        if (props.alwaysLoad) {
+          await fetch()
+        } else if (!props.immediate && unref(isFirstLoad)) {
+          await fetch()
+          isFirstLoad.value = false
+        }
+      }
+    }
+
+    function emitChange() {
+      emit('options-change', unref(getOptions))
+    }
+
+    onMounted(() => {
+      props.immediate && !props.alwaysLoad && fetch()
+    })
+
     return {
-      suggestions,
+      popperRef,
+      show,
+      state,
+      getOptions,
       loading,
-      highlightedIndex,
-      suggestionVisible,
-      handleInput,
       handleFocus,
-      handleSelect
+      handleBlur,
+      handleFetch
     }
   }
 })
