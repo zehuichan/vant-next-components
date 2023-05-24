@@ -1,27 +1,28 @@
 <template>
-  <van-field
-    v-bind="$attrs"
-    :model-value="modelValue"
-    @update:model-value="handleInput"
-    @focus="handleFocus"
-  >
-    <van-popover v-model:show="suggestionVisible">
+  <div class="autocomplete">
+    <van-popover v-model:show="suggestionVisible" placement="bottom-end">
       <div class="autocomplete--suggestion__popover">
         <div class="autocomplete--suggestion__list">
           <div
             v-for="(item, index) in suggestions"
             class="autocomplete--suggestion__item"
             :class="{highlighted: highlightedIndex === index}"
+            @click="handleSelect(item)"
           >
-{{ item}}
+            {{ item }}
           </div>
         </div>
       </div>
       <template #reference>
-        <div slot="extra">1</div>
+        <van-field
+          v-bind="$attrs"
+          :model-value="modelValue"
+          @update:model-value="handleInput"
+          @focus="handleFocus"
+        />
       </template>
     </van-popover>
-  </van-field>
+  </div>
 </template>
 
 <script>
@@ -127,13 +128,22 @@ export default defineComponent({
       }
     }
 
+    function handleSelect(item) {
+      emit('update:modelValue', item[props.valueKey])
+      emit('select', item)
+      activated.value = false
+      suggestions.value = []
+      highlightedIndex.value = -1
+    }
+
     return {
       suggestions,
       loading,
       highlightedIndex,
       suggestionVisible,
       handleInput,
-      handleFocus
+      handleFocus,
+      handleSelect
     }
   }
 })

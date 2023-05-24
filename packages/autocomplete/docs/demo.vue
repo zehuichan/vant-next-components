@@ -1,15 +1,21 @@
 <template>
   <demo-card>
     <v-autocomplete
+      v-model="value"
+      label="autocomplete"
+      placeholder="placeholder"
       :fetch-suggestions="querySearch('mark')"
     />
   </demo-card>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import VAutocomplete from '..'
 
-function querySearch() {
+const value = ref('')
+
+function querySearch(type) {
   return (queryString, cb) => {
     cb([
       { label: '快递', value: 0, },
