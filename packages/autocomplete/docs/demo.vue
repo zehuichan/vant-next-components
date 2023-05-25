@@ -4,7 +4,8 @@
       v-model="value"
       label="autocomplete"
       placeholder="placeholder"
-      :fetch-suggestions="querySearch('mark')"
+      :columns="columns"
+      :params="{value}"
     />
   </demo-card>
 </template>
@@ -15,14 +16,10 @@ import VAutocomplete from '..'
 
 const value = ref('')
 
-function querySearch(type) {
-  return (queryString, cb) => {
-    cb([
-      { label: '快递', value: 0, },
-      { label: '自送', value: 1, }
-    ])
-  }
-}
+const columns = [
+  { label: '快递', value: 0, },
+  { label: '自送', value: 1, }
+]
 </script>
 
 <style lang="less" scoped>

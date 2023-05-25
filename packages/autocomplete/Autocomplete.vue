@@ -1,33 +1,30 @@
 <template>
-  <div class="autocomplete">
-    <van-popover ref="popperRef" :show="show" placement="bottom-end">
-      <div class="autocomplete--suggestion__popover">
-        <div class="autocomplete--suggestion__list">
-          <div
-            v-for="(item, index) in getOptions"
-            class="autocomplete--suggestion__item"
-            :class="{highlighted: highlightedIndex === index}"
-            @click="handleSelect(item)"
-          >
-            {{ item }}
+  <van-field
+    class="autocomplete"
+    v-bind="$attrs"
+    v-model="state"
+    autocomplete="off"
+  >
+    <template #extra>
+      <van-popover v-model:show="show" placement="bottom-end">
+        <div class="autocomplete--suggestion__popover">
+          <div class="autocomplete--suggestion__list">
+            <div
+              v-for="(item, index) in getOptions"
+              class="autocomplete--suggestion__item"
+              @click="handleSelect(item, index)"
+            >
+              {{ item.label }}
+            </div>
           </div>
         </div>
-      </div>
-      <template #reference>
-        <van-field
-          v-bind="$attrs"
-          v-model="state"
-          autocomplete="off"
-          @focus="handleFocus"
-          @blur="handleBlur"
-        />
-      </template>
-    </van-popover>
-  </div>
+      </van-popover>
+    </template>
+  </van-field>
 </template>
 
 <script>
-import { computed, defineComponent, nextTick, onMounted, ref, unref, watch } from 'vue'
+import { computed, defineComponent, onMounted, ref, unref, watch } from 'vue'
 import { get, omit } from 'lodash-es'
 import { useVModel } from '@vueuse/core'
 
@@ -36,6 +33,7 @@ import { isFunction } from '../utils/is.js'
 export default defineComponent({
   name: 'VAutocomplete',
   props: {
+    inheritAttrs: false,
     modelValue: null,
     columns: Array,
     numberToString: Boolean,
@@ -71,11 +69,10 @@ export default defineComponent({
       default: 'bottom-end'
     }
   },
+  emits: ['update:modelValue', 'select', 'columns-change'],
   setup(props, { emit }) {
-    let ignoreFocusEvent = false
 
-    const popperRef = ref(null)
-    const show = ref(true)
+    const show = ref(false)
     const options = ref([])
     const loading = ref(false)
     const isFirstLoad = ref(true)
@@ -111,26 +108,12 @@ export default defineComponent({
       { deep: true }
     )
 
-    function handleFocus(evt) {
-      if (!ignoreFocusEvent) {
-        show.value = true
-        emit('focus', evt)
-      } else {
-        ignoreFocusEvent = false
-      }
-    }
-
-    async function handleBlur(evt) {
-      await nextTick()
-      console.log(popperRef.value, document.activeElement)
-      if (popperRef.value.$el.contains(document.activeElement)) {
-        ignoreFocusEvent = true
-        return
-      }
+    function handleSelect(item, index) {
+      emit('select', item, index)
     }
 
     async function fetch() {
-      const { api, options: defaultOptions = [] } = props
+      const { api, columns: defaultOptions = [] } = props
       if (defaultOptions.length || !api || !isFunction(api)) return
       options.value = []
       try {
@@ -152,19 +135,8 @@ export default defineComponent({
       }
     }
 
-    async function handleFetch(visible) {
-      if (visible) {
-        if (props.alwaysLoad) {
-          await fetch()
-        } else if (!props.immediate && unref(isFirstLoad)) {
-          await fetch()
-          isFirstLoad.value = false
-        }
-      }
-    }
-
     function emitChange() {
-      emit('options-change', unref(getOptions))
+      emit('columns-change', unref(getOptions))
     }
 
     onMounted(() => {
@@ -172,14 +144,11 @@ export default defineComponent({
     })
 
     return {
-      popperRef,
       show,
       state,
       getOptions,
       loading,
-      handleFocus,
-      handleBlur,
-      handleFetch
+      handleSelect
     }
   }
 })
